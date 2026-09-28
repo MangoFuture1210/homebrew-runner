@@ -26,7 +26,7 @@ class FfmpegAT6 < Formula
   depends_on "gnutls"
   depends_on "harfbuzz"
   depends_on "jpeg-xl"
-  depends_on "mangofuture1210/runner/lame"
+  depends_on "lame"
   depends_on "libass"
   depends_on "libbluray"
   depends_on "librist"

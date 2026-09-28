@@ -21,15 +21,20 @@ Each formula is copied from the listed commit with these changes:
   `sdl2-compat` and the backport patch URL follows the current
   homebrew-core `ffmpeg@6` formula; source tarball and patch checksums are
   pinned.
-- `ffmpeg@6` depends on `mangofuture1210/runner/lame` instead of core `lame`.
+- `ffmpeg@6` keeps the plain `lame` dependency. Its dependency `libsndfile`
+  also depends on `lame`; qualifying one of them makes Homebrew lock
+  `Cellar/lame` twice and abort. Install and pin the tap `lame` first so the
+  plain name resolves to the installed 3.100 keg.
 
 ## Install
 
 ```bash
 brew tap mangofuture1210/runner
 brew trust --tap mangofuture1210/runner
-brew install mangofuture1210/runner/lame mangofuture1210/runner/fluid-synth mangofuture1210/runner/ffmpeg@6
-brew pin lame fluid-synth ffmpeg@6
+brew install mangofuture1210/runner/lame mangofuture1210/runner/fluid-synth
+brew pin lame fluid-synth
+brew install mangofuture1210/runner/ffmpeg@6
+brew pin ffmpeg@6
 ```
 
 Formula names match homebrew-core, so always use the fully qualified name.
