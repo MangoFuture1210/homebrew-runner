@@ -10,17 +10,24 @@ Tracked in MangoFuture1210/infra-ops#511.
 | `fluid-synth` | 2.4.6 | `f1b198b33211f7f2322939da0e82bc016119f4de` |
 | `lame` | 3.100 | `e8c27fb0b078f479404e7950ff1f28d86182d5d8` |
 
-Each formula is copied verbatim from the listed commit with two changes:
+Each formula is copied from the listed commit with these changes:
 
-- `root_url "https://ghcr.io/v2/homebrew/core"` in the bottle block, so the
-  official bottles (checksums unchanged) are downloaded instead of building
-  from source.
+- `lame` and `fluid-synth`: `root_url "https://ghcr.io/v2/homebrew/core"` in
+  the bottle block, so the official bottles (checksums unchanged) are
+  downloaded. Their linked libraries still match current homebrew-core.
+- `ffmpeg@6`: bottle block removed, so it builds from source on install. The
+  6.1.5 bottle links `x265` 216, `jpeg-xl` 0.11, `libbluray` 3 and `sdl2`,
+  which current homebrew-core no longer ships. `sdl2` is replaced by
+  `sdl2-compat` and the backport patch URL follows the current
+  homebrew-core `ffmpeg@6` formula; source tarball and patch checksums are
+  pinned.
 - `ffmpeg@6` depends on `mangofuture1210/runner/lame` instead of core `lame`.
 
 ## Install
 
 ```bash
 brew tap mangofuture1210/runner
+brew trust --tap mangofuture1210/runner
 brew install mangofuture1210/runner/lame mangofuture1210/runner/fluid-synth mangofuture1210/runner/ffmpeg@6
 brew pin lame fluid-synth ffmpeg@6
 ```
